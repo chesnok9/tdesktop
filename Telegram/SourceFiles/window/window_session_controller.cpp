@@ -440,6 +440,22 @@ void SessionNavigation::showSettings(const SectionShow &params) {
 	showSettings(Settings::Type::Main, params);
 }
 
+void SessionNavigation::showPayments(
+		Payments::Type type,
+		const SectionShow &params) {
+	showSection(
+		std::make_shared<Info::Memento>(
+			Info::Payments::Tag{ _session->payment() },
+			Info::Section(type)),
+		params);
+
+}
+
+void SessionNavigation::showPayments(const SectionShow &params)
+{
+	showPayments(Payments::Type::Main, params);
+}
+
 void SessionNavigation::showPollResults(
 		not_null<PollData*> poll,
 		FullMsgId contextId,

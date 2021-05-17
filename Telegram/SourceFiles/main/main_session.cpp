@@ -82,6 +82,7 @@ Session::Session(
 , _changes(std::make_unique<Data::Changes>(this))
 , _data(std::make_unique<Data::Session>(this))
 , _user(_data->processUser(user))
+, _payment(_data->peer(peerFromUser(_user->id))->asPayment())
 , _emojiStickersPack(std::make_unique<Stickers::EmojiPack>(this))
 , _diceStickersPacks(std::make_unique<Stickers::DicePacks>(this))
 , _supportHelper(Support::Helper::Create(this))

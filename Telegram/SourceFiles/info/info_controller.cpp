@@ -32,6 +32,9 @@ Key::Key(not_null<PeerData*> peer) : _value(peer) {
 Key::Key(Settings::Tag settings) : _value(settings) {
 }
 
+Key::Key(Payments::Tag settings) : _value(settings) {
+}
+
 Key::Key(not_null<PollData*> poll, FullMsgId contextId)
 : _value(PollKey{ poll, contextId }) {
 }
@@ -45,6 +48,14 @@ PeerData *Key::peer() const {
 
 UserData *Key::settingsSelf() const {
 	if (const auto tag = std::get_if<Settings::Tag>(&_value)) {
+		return tag->self;
+	}
+	return nullptr;
+}
+
+PaymentData *Key::paymentsSelf() const
+{
+	if (const auto tag = std::get_if<Payments::Tag>(&_value)) {
 		return tag->self;
 	}
 	return nullptr;

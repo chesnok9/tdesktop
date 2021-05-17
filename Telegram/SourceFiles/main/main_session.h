@@ -83,6 +83,9 @@ public:
 	[[nodiscard]] not_null<UserData*> user() const {
 		return _user;
 	}
+	[[nodiscard]] not_null<PaymentData*> payment() const {
+		return _payment;
+	}
 	bool validateSelf(const MTPUser &user);
 
 	[[nodiscard]] Api::Updates &updates() const {
@@ -178,6 +181,7 @@ private:
 	const std::unique_ptr<Data::Changes> _changes;
 	const std::unique_ptr<Data::Session> _data;
 	const not_null<UserData*> _user;
+	const not_null<PaymentData*> _payment;
 
 	// _emojiStickersPack depends on _data.
 	const std::unique_ptr<Stickers::EmojiPack> _emojiStickersPack;

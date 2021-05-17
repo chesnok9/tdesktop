@@ -28,6 +28,10 @@ namespace Settings {
 struct Tag;
 } // namespace Settings
 
+namespace Payments {
+struct Tag;
+} // namespace Settings
+
 class ContentMemento;
 class Controller;
 
@@ -121,6 +125,7 @@ public:
 	, _migratedPeerId(migratedPeerId) {
 	}
 	explicit ContentMemento(Settings::Tag settings);
+	explicit ContentMemento(Payments::Tag payments);
 	ContentMemento(not_null<PollData*> poll, FullMsgId contextId)
 	: _poll(poll)
 	, _pollContextId(contextId) {
@@ -139,6 +144,9 @@ public:
 	}
 	UserData *settingsSelf() const {
 		return _settingsSelf;
+	}
+	PaymentData *paymentsSelf() const {
+		return _paymentsSelf;
 	}
 	PollData *poll() const {
 		return _poll;
@@ -181,6 +189,7 @@ private:
 	PeerData * const _peer = nullptr;
 	const PeerId _migratedPeerId = 0;
 	UserData * const _settingsSelf = nullptr;
+	PaymentData * const _paymentsSelf = nullptr;
 	PollData * const _poll = nullptr;
 	const FullMsgId _pollContextId;
 

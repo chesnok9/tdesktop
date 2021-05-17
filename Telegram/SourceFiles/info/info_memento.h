@@ -27,6 +27,10 @@ namespace Settings {
 struct Tag;
 } // namespace Settings
 
+namespace Payments {
+struct Tag;
+} // namespace Settings
+
 class ContentMemento;
 class WrapWidget;
 
@@ -35,6 +39,7 @@ public:
 	explicit Memento(not_null<PeerData*> peer);
 	Memento(not_null<PeerData*> peer, Section section);
 	Memento(Settings::Tag settings, Section section);
+	Memento(Payments::Tag payments, Section section);
 	Memento(not_null<PollData*> poll, FullMsgId contextId);
 	explicit Memento(std::vector<std::shared_ptr<ContentMemento>> stack);
 
@@ -70,6 +75,9 @@ private:
 		Section section);
 	static std::vector<std::shared_ptr<ContentMemento>> DefaultStack(
 		Settings::Tag settings,
+		Section section);
+	static std::vector<std::shared_ptr<ContentMemento>> DefaultStack(
+		Payments::Tag payments,
 		Section section);
 	static std::vector<std::shared_ptr<ContentMemento>> DefaultStack(
 		not_null<PollData*> poll,

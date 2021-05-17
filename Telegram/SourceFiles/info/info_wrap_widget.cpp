@@ -645,7 +645,6 @@ void WrapWidget::finishShowContent() {
 	_content->setIsStackBottom(!hasStackHistory());
 	updateContentGeometry();
 	_desiredHeights.fire(desiredHeightForContent());
-	_desiredShadowVisibilities.fire(_content->desiredShadowVisibility());
 	_selectedLists.fire(_content->selectedListValue());
 	_scrollTillBottomChanges.fire(_content->scrollTillBottomChanges());
 	_topShadow->raise();

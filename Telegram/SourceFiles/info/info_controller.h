@@ -11,6 +11,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "data/data_search_controller.h"
 #include "window/window_session_controller.h"
 #include "settings/settings_common.h"
+#include "payments/payments_common.h"
 
 namespace Ui {
 class SearchFieldController;
@@ -28,14 +29,27 @@ struct Tag {
 
 } // namespace Settings
 
+namespace Payments {
+
+struct Tag {
+	explicit Tag(not_null<PaymentData*> self) : self(self) {
+	}
+
+	not_null<PaymentData*> self;
+};
+
+} // namespace Payments
+
 class Key {
 public:
 	Key(not_null<PeerData*> peer);
 	Key(Settings::Tag settings);
+	Key(Payments::Tag payments);
 	Key(not_null<PollData*> poll, FullMsgId contextId);
 
 	PeerData *peer() const;
 	UserData *settingsSelf() const;
+	PaymentData *paymentsSelf() const;
 	PollData *poll() const;
 	FullMsgId pollContextId() const;
 
@@ -47,6 +61,7 @@ private:
 	std::variant<
 		not_null<PeerData*>,
 		Settings::Tag,
+		Payments::Tag,
 		PollKey> _value;
 
 };
@@ -65,12 +80,14 @@ public:
 		Members,
 		Settings,
 		PollResults,
+		Payments,
 	};
 	using SettingsType = ::Settings::Type;
 	using MediaType = Storage::SharedMediaType;
+	using PaymentsType = ::Payments::Type;
 
 	Section(Type type) : _type(type) {
-		Expects(type != Type::Media && type != Type::Settings);
+		Expects(type != Type::Media && type != Type::Settings && type != Type::Payments);
 	}
 	Section(MediaType mediaType)
 	: _type(Type::Media)
@@ -79,6 +96,10 @@ public:
 	Section(SettingsType settingsType)
 	: _type(Type::Settings)
 	, _settingsType(settingsType) {
+	}
+	Section(PaymentsType paymentsType)
+	: _type(Type::Payments)
+	, _paymentsType(paymentsType) {
 	}
 
 	Type type() const {
@@ -95,10 +116,17 @@ public:
 		return _settingsType;
 	}
 
+	PaymentsType paymentsType() const {
+		Expects(_type == Type::Payments);
+
+		return _paymentsType;
+	};
+
 private:
 	Type _type;
 	MediaType _mediaType = MediaType();
 	SettingsType _settingsType = SettingsType();
+	PaymentsType _paymentsType = PaymentsType();
 
 };
 
@@ -114,6 +142,9 @@ public:
 	PeerId migratedPeerId() const;
 	UserData *settingsSelf() const {
 		return key().settingsSelf();
+	}
+	PaymentData *paymentsSelf() const {
+		return key().paymentsSelf();
 	}
 	PollData *poll() const;
 	FullMsgId pollContextId() const {

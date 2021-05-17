@@ -266,6 +266,8 @@ Key ContentMemento::key() const {
 		return Key(peer);
 	} else if (const auto poll = this->poll()) {
 		return Key(poll, pollContextId());
+	} else if (const auto payment = this->paymentsSelf()){
+		return Payments::Tag{ paymentsSelf()};
 	} else {
 		return Settings::Tag{ settingsSelf() };
 	}
@@ -275,4 +277,7 @@ ContentMemento::ContentMemento(Settings::Tag settings)
 : _settingsSelf(settings.self.get()) {
 }
 
+ContentMemento::ContentMemento(Payments::Tag payments)
+: _paymentsSelf(payments.self.get()) {
+}
 } // namespace Info

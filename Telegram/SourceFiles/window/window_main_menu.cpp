@@ -30,6 +30,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "storage/storage_account.h"
 #include "support/support_templates.h"
 #include "settings/settings_common.h"
+#include "payments/payments_common.h"
 #include "base/qt_signal_producer.h"
 #include "boxes/about_box.h"
 #include "boxes/confirm_box.h"
@@ -932,6 +933,10 @@ void MainMenu::refreshMenu() {
 	}
 	_menu->addAction(tr::lng_menu_settings(tr::now), [=] {
 		controller->showSettings();
+	}, &st::mainMenuSettings, &st::mainMenuSettingsOver);
+
+	_menu->addAction(tr::lng_menu_chesnok_menu_test(tr::now), [=] {
+		controller->showPayments();
 	}, &st::mainMenuSettings, &st::mainMenuSettingsOver);
 
 	_nightThemeAction = std::make_shared<QPointer<QAction>>();

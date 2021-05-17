@@ -38,6 +38,10 @@ namespace Settings {
 enum class Type;
 } // namespace Settings
 
+namespace Payments {
+enum class Type;
+} // namespace Settings
+
 namespace Passport {
 struct FormRequest;
 class FormController;
@@ -197,6 +201,11 @@ public:
 		Settings::Type type,
 		const SectionShow &params = SectionShow());
 	void showSettings(const SectionShow &params = SectionShow());
+
+	void showPayments(
+		Payments::Type type,
+		const SectionShow &params = SectionShow());
+	void showPayments(const SectionShow &params = SectionShow());
 
 	void showPollResults(
 		not_null<PollData*> poll,

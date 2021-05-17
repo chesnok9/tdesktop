@@ -237,6 +237,10 @@ bool UserData::hasCalls() const {
 		&& (callsStatus() != CallsStatus::Unknown);
 }
 
+PaymentData::PaymentData(not_null<Data::Session*> owner, PeerId id)
+: PeerData(owner, id) {
+}
+
 namespace Data {
 
 void ApplyUserUpdate(not_null<UserData*> user, const MTPDuserFull &update) {

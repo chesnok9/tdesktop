@@ -14,6 +14,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 class PeerData;
 class UserData;
+class PaymentData;
 class ChatData;
 class ChannelData;
 
@@ -209,6 +210,8 @@ public:
 
 	[[nodiscard]] UserData *asUser();
 	[[nodiscard]] const UserData *asUser() const;
+	[[nodiscard]] PaymentData *asPayment();
+	[[nodiscard]] const PaymentData *asPayment() const;
 	[[nodiscard]] ChatData *asChat();
 	[[nodiscard]] const ChatData *asChat() const;
 	[[nodiscard]] ChannelData *asChannel();

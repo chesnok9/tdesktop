@@ -630,7 +630,12 @@ rpl::producer<QString> TitleValue(
 		return key.poll()->quiz()
 			? tr::lng_polls_quiz_results_title()
 			: tr::lng_polls_poll_results_title();
+	
+	case Section::Type::Payments:
+		return tr::lng_menu_chesnok_menu_test();
+	
 	}
+
 	Unexpected("Bad section type in Info::TitleValue()");
 }
 

@@ -226,6 +226,10 @@ private:
 
 };
 
+class PaymentData : public PeerData {
+public:
+	PaymentData(not_null<Data::Session*> owner, PeerId id);
+};
 namespace Data {
 
 void ApplyUserUpdate(not_null<UserData*> user, const MTPDuserFull &update);

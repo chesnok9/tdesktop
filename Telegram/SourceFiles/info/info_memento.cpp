@@ -12,6 +12,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "info/members/info_members_widget.h"
 #include "info/common_groups/info_common_groups_widget.h"
 #include "info/settings/info_settings_widget.h"
+#include "info/payments/info_payments_widget.h"
 #include "info/polls/info_polls_results_widget.h"
 #include "info/info_section_widget.h"
 #include "info/info_layer_widget.h"
@@ -37,6 +38,10 @@ Memento::Memento(Settings::Tag settings, Section section)
 : Memento(DefaultStack(settings, section)) {
 }
 
+Memento::Memento(Payments::Tag payments, Section section)
+: Memento(DefaultStack(payments, section)) {
+}
+
 Memento::Memento(not_null<PollData*> poll, FullMsgId contextId)
 : Memento(DefaultStack(poll, contextId)) {
 }
@@ -60,6 +65,15 @@ std::vector<std::shared_ptr<ContentMemento>> Memento::DefaultStack(
 	result.push_back(std::make_shared<Settings::Memento>(
 		settings.self,
 		section.settingsType()));
+	return result;
+}
+std::vector<std::shared_ptr<ContentMemento>> Memento::DefaultStack(
+		Payments::Tag payments,
+		Section section) {
+	auto result = std::vector<std::shared_ptr<ContentMemento>>();
+	result.push_back(std::make_shared<Payments::Memento>(
+		payments.self,
+		section.paymentsType()));
 	return result;
 }
 

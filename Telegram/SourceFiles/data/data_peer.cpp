@@ -585,6 +585,14 @@ const UserData *PeerData::asUser() const {
 	return isUser() ? static_cast<const UserData*>(this) : nullptr;
 }
 
+PaymentData *PeerData::asPayment() {
+	return isUser() ? static_cast<PaymentData*>(this) : nullptr;
+}
+
+const PaymentData *PeerData::asPayment() const {
+	return isUser() ? static_cast<const PaymentData*>(this) : nullptr;
+}
+
 ChatData *PeerData::asChat() {
 	return isChat() ? static_cast<ChatData*>(this) : nullptr;
 }

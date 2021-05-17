@@ -93,6 +93,7 @@ struct MessageGroupId {
 
 class PeerData;
 class UserData;
+class PaymentData;
 class ChatData;
 class ChannelData;
 class BotCommand;
